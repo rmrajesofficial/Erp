@@ -1,17 +1,59 @@
 import React, { useState } from 'react';
+import Modal from '../../Components/Modal';
 
 const CourseSelection = () => {
+    const [open, setOpen] = useState(false);
     const [selectedCourses, setSelectedCourses] = useState([]);
+    const [semesterCourses, setSemesterCourses] = useState(
+        [
+            {
+                course_id: "IT601",
+                course_name: "Database Management Systems",
+                course_credits: 4,
+                is_mandatory: true
+            },
+            {
+                course_id: "IT602",
+                course_name: "Computer Networks",
+                course_credits: 4,
+                is_mandatory: true
+            },
+            {
+                course_id: "IT603",
+                course_name: "Software Engineering",
+                course_credits: 3,
+                is_mandatory: true
+            },
+            {
+                course_id: "IT604",
+                course_name: "Web Technologies",
+                course_credits: 3,
+                is_mandatory: false
+            },
+            {
+                course_id: "IT605",
+                course_name: "Artificial Intelligence",
+                course_credits: 3,
+                is_mandatory: false
+            }
+        ]
+    );
+
 
     const handleCourseSelection = (event) => {
-        const courseId = event.target.value;
+        const course_id = event.target.value;
         const isChecked = event.target.checked;
 
         if (isChecked) {
-            setSelectedCourses((prevSelectedCourses) => [...prevSelectedCourses, courseId]);
+            const selectedCourse = semesterCourses.find(course => course.course_id === course_id);
+            setSelectedCourses([...selectedCourses, selectedCourse]);
         } else {
-            setSelectedCourses((prevSelectedCourses) => prevSelectedCourses.filter((course) => course !== courseId));
+            setSelectedCourses(selectedCourses.filter(course => course.course_id !== course_id));
         }
+    };
+
+    const countCredits = () => {
+        return selectedCourses.reduce((total, course) => total + course.course_credits, 0);
     };
 
     return (
@@ -27,54 +69,54 @@ const CourseSelection = () => {
             <div className="p-4 bg-white rounded-xl mt-2">
                 <div>
                     <h2 className="text-lg font-bold mb-2">Course List</h2>
-                    <ul>
-                        <li>
-                            <label>
-                                <input type="checkbox" value="course1" onChange={handleCourseSelection} />
-                                Course 1 - 3 credits
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <input type="checkbox" value="course2" onChange={handleCourseSelection} />
-                                Course 2 - 4 credits
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <input type="checkbox" value="course3" onChange={handleCourseSelection} />
-                                Course 3 - 3 credits
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <input type="checkbox" value="course4" onChange={handleCourseSelection} />
-                                Course 4 - 4 credits
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <input type="checkbox" value="course5" onChange={handleCourseSelection} />
-                                Course 5 - 3 credits
-                            </label>
-                        </li>
+                    <ul className='flex flex-col gap-4'>
+                        {
+                            semesterCourses.map((item, index) => (
+                                <li>
+                                    <label className='flex gap-4'>
+                                        <input type="checkbox" value={item.course_id} onChange={handleCourseSelection} />
+                                        <div className='flex gap-10'>
+                                            <p>{item.course_id}</p>
+                                            <p>{item.course_name} - ({item.course_credits} Credits)</p>
+                                        </div>
+                                    </label>
+                                </li>
+                            ))
+                        }
                     </ul>
                 </div>
 
                 <div className="mt-4">
-                    <h2 className="text-lg">Additional Courses</h2>
-                    <select className="mt-2 p-2 border border-gray-300 rounded-md">
-                        <option value="">Select Course</option>
-                        <option value="course1">Course 1</option>
-                        <option value="course2">Course 2</option>
-                        <option value="course3">Course 3</option>
-                        <option value="course4">Course 4</option>
-                        <option value="course5">Course 5</option>
-                    </select>
-                </div>
-
-                <div className="mt-4">
-                    <button className="px-4 py-2 bg-blue-500 text-white rounded-md">Register</button>
+                    <button className="px-4 py-2 bg-blue-500 text-white rounded-md" onClick={() => setOpen(true)}>Register</button>
+                    <Modal open={open} onClose={() => setOpen(false)}>
+                        <div className='min-w-96 p-2 w-[600px]'>
+                            <h1 className='font-bold text-xl'>Confirm Courses</h1>
+                            <ul className='flex flex-col gap-2 mt-4 max-h-[500px] overflow-y-auto'>
+                                {
+                                    selectedCourses.map((item, index) => (
+                                        <li>
+                                            <label className='flex gap-4'>
+                                                <div className='flex gap-10'>
+                                                    <p>{item.course_id}</p>
+                                                    <p>{item.course_name} - ({item.course_credits} Credits)</p>
+                                                </div>
+                                            </label>
+                                        </li>
+                                    ))
+                                }
+                            </ul>
+                            <div className='my-4'>
+                                <p>
+                                    <span>Total Credits:</span>
+                                    <span className='ml-2'>{countCredits()}</span>
+                                </p>
+                            </div>
+                            <div className='flex justify-end gap-2 mt-8'>
+                                <button className='bg-gray-200 px-4 py-2 rounded-full hover:bg-gray-300' onClick={() => setOpen(false)}>Cancel</button>
+                                <button className='bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600'>Confirm</button>
+                            </div>
+                        </div>
+                    </Modal>
                 </div>
             </div>
 
