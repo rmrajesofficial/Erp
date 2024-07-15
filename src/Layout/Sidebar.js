@@ -7,7 +7,7 @@ import { useAuth } from '../Context/AuthContext';
 import { FaHome, FaUser, FaBook, FaMoneyBill, FaTools, FaClipboardCheck, FaIdCard, FaGraduationCap, FaUsers, FaMoneyCheckAlt, FaUserTie, FaFileAlt, FaSwatchbook } from 'react-icons/fa';
 
 const Sidebar = () => {
-    const { userRole = 'student', is_staff = false } = useAuth()
+    const { userRole = 'faculty', is_staff = false } = useAuth()
     let routes = [];
     if (userRole === 'student') {
         routes = [

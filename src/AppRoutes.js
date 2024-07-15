@@ -13,6 +13,8 @@ import ExamRegistration from './Pages/Exam/ExamRegistration'
 import HallAdmitCard from './Pages/Exam/HallAdmitCard'
 import PaymentInstructions from './Pages/FeePayment/PaymentInstructions'
 import GradeCard from './Pages/Exam/GradeCard'
+import MyStudents from './Pages/MyStudents/MyStudents'
+import ViewStudents from './Pages/MyStudents/ViewStudents'
 
 const AppRoutes = () => {
     const { isAuthenticated } = useAuth();
@@ -31,6 +33,11 @@ const AppRoutes = () => {
                     <Route path='exam-registration' element={<ExamRegistration />} />
                     <Route path='hall-admit-card' element={<HallAdmitCard />} />
                     <Route path='grade-card' element={<GradeCard />} />
+
+                    {/* faculty  */}
+
+                    <Route path='my-students' element={<MyStudents />} />
+                    <Route path='my-students/:course_id' element={<ViewStudents />} />
                 </Route>
             </Routes>
         </BrowserRouter>
