@@ -7,13 +7,13 @@ import { useAuth } from '../Context/AuthContext';
 import { FaHome, FaUser, FaBook, FaMoneyBill, FaTools, FaClipboardCheck, FaIdCard, FaGraduationCap, FaUsers, FaMoneyCheckAlt, FaUserTie, FaFileAlt, FaSwatchbook } from 'react-icons/fa';
 
 const Sidebar = () => {
-    const { userRole = 'faculty', is_staff = false } = useAuth()
+    const { userRole = 'faculty', is_staff = false, is_coordinator = true } = useAuth()
     let routes = [];
     if (userRole === 'student') {
         routes = [
             { name: 'Dashboard', to: '/dashboard', icon: <FaHome /> },
             { name: 'Profile', to: '/dashboard/profile', icon: <FaUser /> },
-            { name: 'My Courses', to: '/dashboard/courses', icon: <FaSwatchbook  /> },
+            { name: 'My Courses', to: '/dashboard/courses', icon: <FaSwatchbook /> },
             { name: 'Course Selection', to: '/dashboard/course-selection', icon: <FaBook /> },
             { name: 'Fee Payment', to: '/dashboard/fee-payment', icon: <FaMoneyBill /> },
             { name: 'Services', to: '/dashboard/services', icon: <FaTools /> },
@@ -25,20 +25,15 @@ const Sidebar = () => {
         routes = [
             { name: 'Home', to: '/dashboard', icon: <FaHome /> },
             { name: 'My Students', to: '/dashboard/my-students', icon: <FaUsers /> },
-            { name: 'Scholarships', to: '/dashboard/scholarships', icon: <FaMoneyCheckAlt /> },
         ];
 
-        if (is_staff) {
+        if (is_coordinator) {
             routes.push(
-                { name: 'Accounts', to: '/dashboard/accounts', icon: <FaUserTie /> },
+                { name: 'Coordinator', to: '/dashboard/coordinator', icon: <FaUserTie /> },
             );
         }
     }
-    else if (userRole === 'dean') {
-        routes = [
-            { name: 'Student Thesis', to: '/dashboard/my-students', icon: <FaFileAlt /> },
-        ];
-    }
+    
 
     return (
         <div className="w-64 h-full p-4 text-sm border-r bg-white">

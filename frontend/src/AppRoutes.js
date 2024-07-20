@@ -15,6 +15,10 @@ import PaymentInstructions from './Pages/FeePayment/PaymentInstructions'
 import GradeCard from './Pages/Exam/GradeCard'
 import MyStudents from './Pages/MyStudents/MyStudents'
 import ViewStudents from './Pages/MyStudents/ViewStudents'
+import Coordinator from './Pages/Coordinator/Coordinator'
+import SemesterOpenClose from './Pages/Coordinator/CoordinatorPages/SemesterOpenClose'
+import SubjectAssignment from './Pages/Coordinator/CoordinatorPages/SubjectAssignment'
+import StudentVerification from './Pages/Coordinator/CoordinatorPages/StudentVerification'
 
 const AppRoutes = () => {
     const { isAuthenticated } = useAuth();
@@ -38,6 +42,11 @@ const AppRoutes = () => {
 
                     <Route path='my-students' element={<MyStudents />} />
                     <Route path='my-students/:course_id' element={<ViewStudents />} />
+                    {/* is_coordinator  */}
+                    <Route path='coordinator' element={<Coordinator />} />
+                    <Route path='coordinator/semester_status' element={<SemesterOpenClose />} />
+                    <Route path='coordinator/subject_assignment' element={<SubjectAssignment />} />
+                    <Route path='coordinator/student_verification' element={<StudentVerification />} />
                 </Route>
             </Routes>
         </BrowserRouter>

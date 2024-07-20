@@ -39,7 +39,7 @@ const MyStudents = () => {
             <div className='flex flex-col gap-2'>
                 {
                     courses.map(item => (
-                        <div key={item.course_id} className='bg-white shadow-sm'>
+                        <div key={item.course_id} className='bg-white shadow-sm rounded'>
                             <div className='p-4'>
                                 <h2 className='text-lg font-semibold'>{item.course_id} | {item.course_name}</h2>
                                 <div className='text-sm'>
@@ -47,7 +47,7 @@ const MyStudents = () => {
                                     <p>Credits: {item.course_credits}</p>
                                 </div>
                             </div>
-                            <div className='flex gap-2 flex-wrap mt-10 p-4 bg-neutral-100'>
+                            <div className='flex gap-2 flex-wrap mt-10 p-4 bg-neutral-100 rounded-b'>
                                 <NavLink to={`/dashboard/my-students/${item.course_id}`} target='_blank' className='text-sm bg-blue-100 text-blue-600 px-3 py-1 rounded-full font-semibold hover:bg-blue-200'>
                                     View Students
                                 </NavLink>
